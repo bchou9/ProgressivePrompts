@@ -8,6 +8,13 @@ from t5_continual import T5ContinualLearner
 
 
 def main(args):
+    print(torch.cuda.is_available())
+    num = torch.cuda.current_device()
+    print(torch.cuda.get_device_name(num))
+    print(torch.version.cuda)
+    torch.cuda.empty_cache()
+    device = torch.device("cuda")
+
     save_path = os.path.join(args.save_dir, args.save_name)
     if not os.path.exists(save_path):
         os.mkdir(save_path)
@@ -70,7 +77,7 @@ if __name__ == "__main__":
         '--save_dir',
         type=str,
         help='base directory of all models / features (should not be changed)',
-        default='/data/home/arazdai/T5_prompts/T5_continual/' #'/scratch/hdd001/home/anastasia/CL/'
+        default='./' #'/scratch/hdd001/home/anastasia/CL/'
     )
 
     parser.add_argument(
@@ -112,14 +119,14 @@ if __name__ == "__main__":
         '--batch_size',
         type=int,
         help='Batch size',
-        default=8
+        default=4
     )
 
     parser.add_argument(
         '--seq_len',
         type=int,
         help='Length of a single repeat (in #tokens)',
-        default=512
+        default=128
     )
 
     parser.add_argument(
@@ -226,7 +233,7 @@ if __name__ == "__main__":
         '--bottleneck_size',
         type=int,
         help='MLP bottleneck size',
-        default=800
+        default=400
     )
 
     main(parser.parse_args())

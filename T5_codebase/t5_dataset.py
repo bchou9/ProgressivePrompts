@@ -290,7 +290,7 @@ class T5Dataset:
                                           batched=False)
             encoded_dataset.set_format(type='torch', columns=['source_ids', 'source_mask',
                                                               'target_ids', 'target_mask'])
-            dataloader = DataLoader(encoded_dataset, batch_size=batch_size)
+            dataloader = DataLoader(encoded_dataset, batch_size=batch_size, num_workers=6)
 
             return dataloader
         
@@ -309,7 +309,7 @@ class T5Dataset:
                                               batched=False)
                 encoded_dataset.set_format(type='torch', columns=['source_ids', 'source_mask',
                                                                   'target_ids', 'target_mask'])
-                dataloader = DataLoader(encoded_dataset, batch_size=batch_size)
+                dataloader = DataLoader(encoded_dataset, batch_size=batch_size, num_workers=4)
                 dataloaders_val_test.append(dataloader)
 
             return dataloaders_val_test
